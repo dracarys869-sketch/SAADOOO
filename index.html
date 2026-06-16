@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>E BOTO MO NA YAN | Web Voting System</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+  <link rel="stylesheet" href="../css/voter.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <!-- Existing login & non-admin views unchanged -->
+
+
+    <main id="app" class="app-main" tabindex="-1">
+      <!-- LOGIN VIEW -->
+      <section id="loginView" class="view active-view login-view" aria-labelledby="loginTitle">
+        <div class="login-scene">
+          <div class="login-brand" aria-hidden="true">
+            <div class="login-brand-text">
+              <p>E-BOTO MO NA YAN</p>
+            </div>
+          </div>
+
+          <div class="portal-card surface-card">
+            <div class="role-tabs" role="tablist" aria-label="Select user role">
+              <button class="role-tab" data-login-role="voter" type="button" role="tab" aria-selected="false">
+                <span class="tab-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 12a4.2 4.2 0 1 0-4.2-4.2A4.2 4.2 0 0 0 12 12Z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M4.5 20c1.6-3.8 4.2-5.7 7.5-5.7S17.9 16.2 19.5 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                  </svg>
+                </span>
+                <span>VOTER</span>
+              </button>
+              <button class="role-tab active" data-login-role="admin" type="button" role="tab" aria-selected="true">
+                <span class="tab-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M10.2 4.3h3.6l.5 2a7.4 7.4 0 0 1 1.4.8l2-.6 1.8 3.1-1.5 1.4c.1.3.2.9.2 1.2s0 .9-.2 1.2l1.5 1.4-1.8 3.1-2-.6a7.4 7.4 0 0 1-1.4.8l-.5 2h-3.6l-.5-2a7.4 7.4 0 0 1-1.4.8l-.5 2h-3.6l-.5-2a7.4 7.4 0 0 1-1.4-.8l-2 .6-1.8-3.1 1.5-1.4A5.3 5.3 0 0 1 6 12.1c0-.4.1-.9.2-1.2L4.7 9.5l1.8-3.1 2 .6a7.4 7.4 0 0 1 1.4-.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                    <circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+                  </svg>
+                </span>
+                <span>ADMIN</span>
+              </button>
+            </div>
+
+            <div class="portal-body">
+              <header class="portal-heading">
+                <h2 id="loginTitle">Log in to the Platform</h2>
+                <span class="flag-icon" aria-label="Philippines flag" title="Philippines flag">
+                  <svg viewBox="0 0 18 12" aria-hidden="true">
+                    <rect width="18" height="6" y="0" fill="#0038a8" />
+                    <rect width="18" height="6" y="6" fill="#ce1126" />
+                    <path d="M0 0l5.2 6L0 12z" fill="#fff" />
+                    <circle cx="1.8" cy="6" r="1.1" fill="#fcd116" />
+                  </svg>
+                </span>
+              </header>
+
+              <div class="role-panel active" data-login-panel="admin">
+                <form id="adminLoginForm" class="portal-form" novalidate>
+                  <div class="field-group">
+                    <label for="adminUsernameInput">Username</label>
+                    <div class="input-shell">
+                      <span class="input-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M12 12a4.25 4.25 0 1 0-4.25-4.25A4.25 4.25 0 0 0 12 12Z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                          <path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <input id="adminUsernameInput" name="username" type="text" value="admin" autocomplete="username" />
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="adminPasswordInput">Password</label>
+                    <div class="input-shell password-shell">
+                      <span class="input-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M7.5 11V8.5a4.5 4.5 0 0 1 9 0V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                          <rect x="5" y="11" width="14" height="8.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        </svg>
+                      </span>
+                      <input id="adminPasswordInput" name="password" type="password" value="admin123" autocomplete="current-password" required />
+                      <button class="input-action" type="button" data-password-toggle aria-label="Toggle password visibility">
+                        <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M2.5 12s3.4-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.4 6.5-9.5 6.5S2.5 12 2.5 12Z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                          <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        </svg>
+                        <svg class="eye-off" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M4 4 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                          <path d="M2.5 12s3.4-6.5 9.5-6.5c1.7 0 3.2.4 4.4 1.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                          <path d="M21.5 12s-3.4 6.5-9.5 6.5c-1.7 0-3.2-.4-4.4-1.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                          <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <p class="help-text login-note">Leaving username blank defaults to <strong>admin</strong>.</p>
+                  <button class="primary-button portal-submit" type="submit">
+                    <span>Access dashboard</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 12h12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                      <path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+
+              <div class="role-panel" data-login-panel="voter" hidden>
+                <form id="voterLoginForm" class="portal-form" novalidate>
+                  <div class="field-group">
+                    <label for="voterIdInput">Voter ID</label>
+                    <div class="input-shell">
+                      <span class="input-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M12 12a4.25 4.25 0 1 0-4.25-4.25A4.25 4.25 0 0 0 12 12Z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                          <path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <input id="voterIdInput" name="voterId" type="text" placeholder="23-00001" autocomplete="off" required />
+                    </div>
+                  </div>
+                  <p class="help-text login-note">Voter IDs are normalized to uppercase before validation.</p>
+                  
+                  <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem;">
+                    <button class="primary-button portal-submit" type="submit" style="flex: 1;">
+                      <span>Enter ballot</span>
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M5 12h12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                        <path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                    <button id="startRegisterBtn" class="ghost-button" type="button" style="padding: 0.9rem 1.2rem;">
+                      <span>Register</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+
+
+              <div id="loginStats" class="login-stats" aria-hidden="true"></div>
+              <div class="portal-footer">
+                <span class="portal-footnote">Secured</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REGISTRATION VIEW -->
+      <section id="registrationView" class="view" aria-labelledby="registerTitle">
+        <header class="screen-header surface-card">
+          <div>
+            <p class="eyebrow">Identity Verification</p>
+            <h2 id="registerTitle">Voter Self-Registration</h2>
+          </div>
+          <div class="header-actions">
+            <button id="cancelRegisterBtn" class="primary-button" type="button">Back to Log In</button>
+          </div>
+        </header>
+
+        <div class="wizard-container surface-card" style="margin-top: 1.2rem; padding: 2rem; max-width: 900px; margin-left: auto; margin-right: auto;">
+          <div class="wizard-steps"
+            style="display: flex; justify-content: space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+            <div class="wizard-step active" id="stepIndicator1"><strong>1. Upload & Scan School ID</strong></div>
+            <div class="wizard-step" id="stepIndicator2"><strong>2. Live Selfie Scan</strong></div>
+            <div class="wizard-step" id="stepIndicator3"><strong>3. Review & Submit</strong></div>
+          </div>
+
+          <!-- STEP 1 CONTENT -->
+          <div class="wizard-content" id="stepContent1">
+            <div class="form-grid two-columns" style="align-items: start; gap: 1.5rem;">
+              <div>
+                <h4>Upload School ID Card</h4>
+                <p class="muted" style="margin-bottom: 1rem;">Upload your School ID card. The OCR scanner will analyze the image, check quality, and auto-fill your profile details.</p>
+
+                <input id="govIdUpload" type="file" accept="image/*" style="display: none;" />
+                <label for="govIdUpload" class="file-label"
+                  style="cursor: pointer; padding: 2rem; border: 2px dashed var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; border-radius: 12px; background: var(--bg);">
+                  <span style="font-size: 2rem;">🪪</span>
+                  <strong>Choose School ID File</strong>
+                  <span class="muted" style="font-size: 0.85rem;">PNG, JPG up to 10MB</span>
+                </label>
+
+                <!-- Scanner Preview Canvas -->
+                <div id="idScanContainer"
+                  style="display: none; margin-top: 1.5rem; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                  <canvas id="idCanvas" style="display: block; width: 100%; max-height: 240px; object-fit: contain; background: var(--bg-accent);"></canvas>
+                  <div class="ocr-scanner-line"></div>
+                  <div id="ocrStatusLabel"
+                    style="position: absolute; bottom: 0.75rem; left: 0.75rem; background: rgba(15, 23, 42, 0.85); color: white; padding: 0.4rem 0.8rem; border-radius: 99px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                    <div class="spinner" style="width: 1rem; height: 1rem; border-width: 2px;"></div>
+                    <span>Extracting ID details (OCR)...</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="surface-card" style="padding: 1.25rem; border: 1px solid var(--border); background: var(--bg-accent);">
+                <h4>Extracted Profile Information</h4>
+                <p class="muted" style="font-size: 0.85rem; margin-bottom: 1rem;">Verify the auto-filled details. Correct manually if needed.</p>
+                <div class="form-grid" style="gap: 0.8rem;">
+                  <div>
+                    <label for="regFullName">Full Name</label>
+                    <input id="regFullName" placeholder="Not Detected" required />
+                    <span id="nameConf" class="muted" style="font-size: 0.75rem; display: block; margin-top: 0.2rem;"></span>
+                  </div>
+
+                  <div>
+                    <label for="regCourse">Course</label>
+                    <input id="regCourse" placeholder="Not Detected" required />
+                    <span id="courseConf" class="muted" style="font-size: 0.75rem; display: block; margin-top: 0.2rem;"></span>
+                  </div>
+
+                  <div>
+                    <label for="regVoterId">Student ID Number</label>
+                    <input id="regVoterId" placeholder="Not Detected" required />
+                    <span id="voterIdConf" class="muted" style="font-size: 0.75rem; display: block; margin-top: 0.2rem;"></span>
+                  </div>
+
+                  <div>
+                    <label for="regSchoolName">School Name</label>
+                    <input id="regSchoolName" placeholder="Not Detected" required />
+                    <span id="schoolNameConf" class="muted" style="font-size: 0.75rem; display: block; margin-top: 0.2rem;"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+              <button class="primary-button" id="nextStep1Btn" disabled>Continue to Selfie Scan</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 CONTENT -->
+          <div class="wizard-content hidden" id="stepContent2">
+            <div class="form-grid two-columns" style="align-items: center; gap: 1.5rem;">
+              <div>
+                <h4>Live Biometric Selfie Capture</h4>
+                <p class="muted" style="margin-bottom: 1rem;">The system will match your live selfie biometrics against your uploaded School ID photo to confirm your identity.</p>
+
+                <div class="camera-wrapper"
+                  style="position: relative; width: 320px; height: 320px; margin: 0 auto; border-radius: 50%; border: 4px solid var(--border); overflow: hidden; background: #000; box-shadow: var(--shadow);">
+                  <video id="selfieVideo" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+                  <canvas id="selfieCanvas" style="display: none;"></canvas>
+                  <div class="biometric-mesh-overlay"></div>
+                  <div class="camera-face-guideline"></div>
+                </div>
+
+                <div style="display: flex; justify-content: center; margin-top: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                  <button class="ghost-button" id="startCamBtn">Start Camera</button>
+                  <button class="primary-button" id="captureSelfieBtn" disabled>Capture Selfie</button>
+                  <input id="selfieUpload" type="file" accept="image/*" style="display: none;" />
+                  <button class="ghost-button" id="chooseSelfieFileBtn" type="button">Upload Selfie File</button>
+                </div>
+              </div>
+
+              <div class="surface-card" style="padding: 1.5rem; text-align: center; border: 1px solid var(--border); min-height: 280px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1rem;">
+                <div id="matchingPlaceholder">
+                  <h4>Biometric Matching Status</h4>
+                  <p class="muted">Capture or upload a selfie to run biometrics comparison against the School ID.</p>
+                </div>
+                <div id="matchingStatus" style="display: none;">
+                  <h4 id="matchProgressTitle">Analyzing...</h4>
+                  <div id="matchResultBox" style="display: none; margin-top: 1rem;">
+                    <div style="font-size: 2.5rem; font-weight: 800;" id="matchScoreVal">0.0%</div>
+                    <div id="matchResultPill" style="display: inline-block; padding: 0.4rem 0.8rem; border-radius: 99px; font-weight: 700; margin-top: 0.5rem; font-size: 0.85rem;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+              <button class="ghost-button" id="prevStep2Btn" type="button">Back</button>
+              <button class="primary-button" id="nextStep2Btn" disabled type="button">Continue to Review</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 CONTENT -->
+          <div class="wizard-content hidden" id="stepContent3">
+            <h4>Review & Submit Registration</h4>
+            <p class="muted" style="margin-bottom: 1.5rem;">Please review your credentials and verification metrics before finalizing registration.</p>
+            <div id="regSummaryList" class="surface-card" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <!-- Dynamic summary rows go here -->
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+              <button class="ghost-button" id="prevStep3Btn" type="button">Back</button>
+              <button class="primary-button" id="submitRegisterBtn" type="button">Submit Registration</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Dialog / Modals / Toast / Overlays -->
+  <div id="toastRegion" class="toast-region"></div>
+
+  <div id="loadingOverlay" class="loading-overlay" hidden>
+    <div class="spinner-card surface-card">
+      <div class="spinner"></div>
+      <p id="loadingText">Processing...</p>
+    </div>
+  </div>
+
+  <dialog id="modalDialog" class="modal-dialog">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p id="modalEyebrow" class="eyebrow"></p>
+          <h3 id="modalTitle"></h3>
+        </div>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </dialog>
+
+  <dialog id="biometricAuthModal" class="modal-dialog" style="max-width: 420px;">
+    <div class="modal-card" style="text-align: center; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+      <p class="eyebrow">Biometric Authentication</p>
+      <h3>Face Scan Verification</h3>
+      
+      <div class="camera-wrapper" style="position: relative; width: 220px; height: 220px; border-radius: 50%; border: 4px solid var(--border); overflow: hidden; background: #000;">
+        <video id="authVideo" autoplay playsinline muted style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+        <canvas id="authCanvas" style="display: none;"></canvas>
+      </div>
+
+      <div id="livenessChallengeContainer" style="display: none; width: 100%;">
+        <p id="livenessInstruction" style="font-weight: 700; color: var(--primary);"></p>
+        <div style="width: 100%; background: var(--bg-accent); height: 6px; border-radius: 99px; overflow: hidden; margin-top: 0.5rem;">
+          <div id="livenessProgressBar" style="background: var(--primary); height: 100%; width: 0%; transition: width 0.2s ease;"></div>
+        </div>
+      </div>
+
+      <p id="authStatusText" class="muted" style="font-size: 0.9rem;"></p>
+      
+      <div style="display: flex; gap: 1rem; width: 100%; margin-top: 1rem;">
+        <button id="cancelBioAuthBtn" class="ghost-button subtle" style="flex: 1;" type="button">Cancel</button>
+        <button id="startBioAuthCamBtn" class="primary-button" style="flex: 1;" type="button">Start Camera</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/helpers.js"></script>
+  <script src="../js/login.js"></script>
+  <script src="../js/voter.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

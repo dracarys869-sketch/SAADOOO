@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="complete-screen panel panel-strong center-card">
+  <span class="eyebrow">Vote recorded</span>
+  <h1>Thank you, {{ voter_name }}.</h1>
+  <p>Your ballot has been recorded securely and the session has been closed.</p>
+  <a class="btn btn-primary" href="{{ url_for('login') }}">Return to login</a>
+</section>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero panel panel-strong">
+  <div>
+    <span class="eyebrow">Voting screen</span>
+    <h1>Cast your ballot</h1>
+    <p>Review each position carefully. Select one candidate or abstain for every section.</p>
+  </div>
+  <div class="hero-meta">
+    <span class="pill">Voter: {{ voter_name }}</span>
+    <span class="pill pill-soft">ID: {{ voter_id }}</span>
+  </div>
+</section>
+
+<section class="vote-layout">
+  <div class="panel panel-card vote-panel">
+    <div class="section-title">
+      <span class="eyebrow eyebrow-alt">Ballot positions</span>
+      <h2>Choose your candidates</h2>
+      <p>{{ completed_positions }}/{{ total_positions }} positions prepared.</p>
+    </div>
+
+    {% if groups %}
+      <form class="vote-form" method="post" action="{{ url_for('vote') }}">
+        {% for group in groups %}
+          <section class="position-block">
+            <header class="position-head">
+              <div>
+                <span class="position-index">{{ loop.index }}</span>
+                <h3>{{ group.position }}</h3>
+              </div>
+              <span class="chip chip-soft">{{ group.candidates|length }} candidates</span>
+            </header>
+
+            <label class="abstain-row">
+              <input type="radio" name="{{ group.field_name }}" value="abstain" {% if selected_values.get(group.field_name) == 'abstain' %}checked{% endif %} />
+              <span>Abstain for this position</span>
+            </label>
+
+            <div class="candidate-grid vote-grid">
+              {% for candidate in group.candidates %}
+                <label class="candidate-choice{% if selected_values.get(group.field_name) == candidate.id|string %} candidate-choice-selected{% endif %}">
+                  <input type="radio" name="{{ group.field_name }}" value="{{ candidate.id }}" {% if selected_values.get(group.field_name) == candidate.id|string %}checked{% endif %} />
+                  <span class="candidate-choice-inner">
+                    <span class="candidate-portrait{% if not candidate.photo_url %} portrait-initials{% endif %}" {% if candidate.photo_url %}style="background-image:url('{{ candidate.photo_url }}')"{% endif %}>
+                      {% if not candidate.photo_url %}{{ candidate.initials }}{% endif %}
+                    </span>
+                    <span class="candidate-copy">
+                      <strong>{{ candidate.name }}</strong>
+                      <span>{{ candidate.partylist }}</span>
+                      <span class="muted">{{ candidate.election }}</span>
+                    </span>
+                  </span>
+                </label>
+              {% endfor %}
+            </div>
+          </section>
+        {% endfor %}
+
+        <div class="vote-actions">
+          <button class="btn btn-primary" type="submit">Submit ballot</button>
+          <a class="btn btn-secondary" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+      </form>
+    {% else %}
+      <div class="empty-state">No candidates available right now.</div>
+    {% endif %}
+  </div>
+
+  <aside class="panel panel-card vote-side">
+    <div class="section-title">
+      <span class="eyebrow eyebrow-warm">Voting guide</span>
+      <h2>Quick steps</h2>
+    </div>
+    <ol class="guide-list">
+      <li>Select one candidate or abstain for each position.</li>
+      <li>Check the ballot sections before submitting.</li>
+      <li>Submit once the ballot is complete.</li>
+    </ol>
+    <div class="progress-card">
+      <span>Estimated completion</span>
+      <strong>{{ completion_percent | round(0) }}%</strong>
+      <div class="progress-bar"><span style="width:{{ completion_percent }}%"></span></div>
+    </div>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="dashboard-shell admin-shell">
+  <aside class="panel dashboard-sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-mark" aria-hidden="true">EB</div>
+      <div>
+        <span class="eyebrow eyebrow-alt">Admin control</span>
+        <h2>E Boto Mo Na Yan</h2>
+        <p>Election control center</p>
+      </div>
+    </div>
+
+    <div class="sidebar-badge">Live operations</div>
+
+    <nav class="sidebar-nav" aria-label="Admin sections">
+      <a class="sidebar-link" href="#dashboard-overview">Overview</a>
+      <a class="sidebar-link" href="#dashboard-actions">Quick actions</a>
+      <a class="sidebar-link" href="#dashboard-candidates">Candidates</a>
+      <a class="sidebar-link" href="#dashboard-voters">Voters</a>
+      <a class="sidebar-link" href="#dashboard-tools">System tools</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="summary-list sidebar-summary">
+        <div>
+          <span>Admin</span>
+          <strong>{{ admin_username }}</strong>
+        </div>
+        <div>
+          <span>Security</span>
+          <strong>Authenticated control</strong>
+        </div>
+      </div>
+      <a class="btn btn-secondary" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </aside>
+
+  <div class="dashboard-column dashboard-main">
+    <section class="page-hero panel panel-hero admin-hero" id="dashboard-overview">
+      <div class="hero-copy">
+        <span class="eyebrow">Admin dashboard</span>
+        <h1>Election control center</h1>
+        <p>
+          Track live participation, manage candidates, and keep voter records organized from a clearer command panel.
+        </p>
+
+        <div class="hero-points hero-points-inline">
+          <div class="metric metric-inverse">
+            <span>Registered voters</span>
+            <strong>{{ stats.registered_voters }}</strong>
+          </div>
+          <div class="metric metric-inverse">
+            <span>Votes cast</span>
+            <strong>{{ stats.votes_cast }}</strong>
+          </div>
+          <div class="metric metric-inverse">
+            <span>Candidates</span>
+            <strong>{{ stats.candidates }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual hero-visual-admin" aria-hidden="true">
+        <svg viewBox="0 0 420 360" role="img" focusable="false">
+          <defs>
+            <linearGradient id="adminGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#93c5fd" />
+              <stop offset="55%" stop-color="#2563eb" />
+              <stop offset="100%" stop-color="#0f766e" />
+            </linearGradient>
+          </defs>
+          <rect x="30" y="24" width="360" height="312" rx="30" fill="rgba(255,255,255,0.05)"
+            stroke="rgba(255,255,255,0.14)" />
+          <rect x="76" y="70" width="102" height="132" rx="22" fill="rgba(255,255,255,0.08)" />
+          <rect x="76" y="72" width="102" height="24" rx="12" fill="rgba(255,255,255,0.15)" />
+          <rect x="198" y="70" width="146" height="72" rx="22" fill="rgba(255,255,255,0.08)" />
+          <rect x="198" y="158" width="146" height="112" rx="22" fill="rgba(255,255,255,0.08)" />
+          <path d="M216 104h92M216 128h56" stroke="rgba(255,255,255,0.38)" stroke-width="10" stroke-linecap="round" />
+          <path d="M90 122h70M90 146h44M90 170h62" stroke="rgba(255,255,255,0.34)" stroke-width="10"
+            stroke-linecap="round" />
+          <circle cx="126" cy="230" r="28" fill="url(#adminGradient)" />
+          <path d="M111 230l10 10 22-24" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <circle cx="320" cy="206" r="26" fill="url(#adminGradient)" opacity="0.95" />
+          <path d="M320 192v28M306 206h28" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+        </svg>
+        <div class="hero-action-row">
+          <a class="btn btn-secondary hero-action" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-grid dashboard-stats-grid">
+      <article class="stat-card panel">
+        <span>Registered voters</span>
+        <strong>{{ stats.registered_voters }}</strong>
+        <p>Voters currently in the registry.</p>
+      </article>
+      <article class="stat-card panel">
+        <span>Votes cast</span>
+        <strong>{{ stats.votes_cast }}</strong>
+        <p>Ballots already submitted securely.</p>
+      </article>
+      <article class="stat-card panel">
+        <span>Candidates</span>
+        <strong>{{ stats.candidates }}</strong>
+        <p>Active candidates available in the ballot.</p>
+      </article>
+    </section>
+
+    <article class="panel panel-card overview-card" id="dashboard-actions">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-alt">Election overview</span>
+        <h2>Turnout snapshot</h2>
+        <p>Track the current progress of the election cycle at a glance.</p>
+      </div>
+      <div class="overview-meta">
+        <div>
+          <span>Registered voters</span>
+          <strong>{{ stats.registered_voters }}</strong>
+        </div>
+        <div>
+          <span>Votes cast</span>
+          <strong>{{ stats.votes_cast }}</strong>
+        </div>
+        <div>
+          <span>Turnout</span>
+          <strong>{{ '%.1f'|format(turnout_percent) }}%</strong>
+        </div>
+      </div>
+      <div class="progress-bar overview-progress" aria-hidden="true">
+        <span id="turnout-bar-fill"></span>
+        <script>document.getElementById('turnout-bar-fill').style.width = '{{ turnout_percent }}%';</script>
+      </div>
+    </article>
+
+    <article class="panel panel-card">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-alt">Election operations</span>
+        <h2>Quick actions</h2>
+        <p>Use these controls to keep the ballot registry current.</p>
+      </div>
+      <div class="admin-actions-grid">
+        <div class="admin-action-card">
+          <span>Candidate intake</span>
+          <strong>Onboard nominees</strong>
+          <p>Register a candidate with party, position, and ballot photo.</p>
+        </div>
+        <div class="admin-action-card">
+          <span>Voter access</span>
+          <strong>Issue voter IDs</strong>
+          <p>Add eligible voters and keep their access record consistent.</p>
+        </div>
+        <div class="admin-action-card admin-action-card-muted">
+          <span>Maintenance</span>
+          <strong>Reset or clean up</strong>
+          <p>Use the system tools after an election cycle or test run.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel panel-card">
+      <div class="section-title" id="dashboard-candidates">
+        <span class="eyebrow eyebrow-alt">Add candidate</span>
+        <h2>Register a new candidate</h2>
+        <p>Enter the public-facing profile that appears on the ballot.</p>
+      </div>
+      <form class="stack-form" method="post" action="{{ url_for('add_candidate') }}" enctype="multipart/form-data">
+        <div class="form-grid two-col">
+          <label><span>Name</span><input type="text" name="name" placeholder="Candidate name" /></label>
+          <label><span>Position</span><input type="text" name="position" placeholder="e.g. President" /></label>
+          <label><span>Partylist</span><input type="text" name="partylist" placeholder="Optional" /></label>
+          <label><span>Election</span><input type="text" name="election" placeholder="Optional" /></label>
+        </div>
+        <label>
+          <span>Photo</span>
+          <input type="file" name="photo" accept="image/*" />
+        </label>
+        <button class="btn btn-primary" type="submit">Add candidate</button>
+      </form>
+    </article>
+
+    <article class="panel panel-card list-panel">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-alt">Candidates</span>
+        <h2>Current roster</h2>
+        <p>Monitor ballot candidates and remove outdated entries.</p>
+      </div>
+      {% if candidates %}
+      <div class="candidate-list">
+        {% for candidate in candidates %}
+        <article class="candidate-row">
+          <div class="candidate-portrait{% if not candidate.photo_url %} portrait-initials{% endif %}" {% if
+            candidate.photo_url %}style="background-image:url('{{ candidate.photo_url }}')" {% endif %}>
+            {% if not candidate.photo_url %}{{ candidate.initials }}{% endif %}
+          </div>
+          <div class="candidate-copy">
+            <strong>{{ candidate.name }}</strong>
+            <span>{{ candidate.position }}</span>
+            <div class="tag-row">
+              <span class="chip">{{ candidate.partylist }}</span>
+              <span class="chip chip-alt">{{ candidate.election }}</span>
+              <span class="chip chip-soft">{{ candidate.votes }} votes</span>
+            </div>
+          </div>
+          <form method="post" action="{{ url_for('delete_candidate', candidate_id=candidate.id) }}">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-state">No candidates yet.</div>
+      {% endif %}
+    </article>
+  </div>
+
+  <aside class="dashboard-column dashboard-side">
+    <article class="panel panel-card dashboard-summary-card">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-warm">System summary</span>
+        <h2>Workspace status</h2>
+      </div>
+      <div class="summary-list">
+        <div>
+          <span>Session mode</span>
+          <strong>Live admin access</strong>
+        </div>
+        <div>
+          <span>Security</span>
+          <strong>Authenticated control</strong>
+        </div>
+        <div>
+          <span>Workflow</span>
+          <strong>Candidate, voter, results</strong>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel panel-card" id="dashboard-voters">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-warm">Add voter</span>
+        <h2>Register a voter</h2>
+        <p>Generate a voting ID and record the voter’s full name.</p>
+      </div>
+      <form class="stack-form" method="post" action="{{ url_for('add_voter') }}">
+        <div class="form-grid">
+          <label><span>Full name</span><input type="text" name="name" placeholder="Voter full name" /></label>
+          <label><span>Voter ID</span><input type="text" name="voter_id" placeholder="23-00000" /></label>
+        </div>
+        <button class="btn btn-primary" type="submit">Add voter</button>
+      </form>
+    </article>
+
+    <article class="panel panel-card list-panel">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-warm">Voters</span>
+        <h2>Registered voters</h2>
+        <p>Review the current voter registry and voting status.</p>
+      </div>
+      {% if voters %}
+      <div class="voter-list">
+        {% for voter in voters %}
+        <article class="voter-row">
+          <div>
+            <strong>{{ voter[1] }}</strong>
+            <span>ID: {{ voter[2] }}</span>
+          </div>
+          <span class="chip {% if voter[3] == 1 %}chip-success{% else %}chip-warning{% endif %}">
+            {% if voter[3] == 1 %}Voted{% else %}Not voted{% endif %}
+          </span>
+          <form method="post" action="{{ url_for('delete_voter', voter_id=voter[2]) }}">
+            <button class="btn btn-danger" type="submit">Delete</button>
+          </form>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="empty-state">No voters yet.</div>
+      {% endif %}
+    </article>
+
+    <article class="panel panel-card" id="dashboard-tools">
+      <div class="section-title">
+        <span class="eyebrow">System tools</span>
+        <h2>Election controls</h2>
+        <p>Administrative actions for maintenance and reset flows.</p>
+      </div>
+      <form method="post" action="{{ url_for('reset_election') }}">
+        <button class="btn btn-secondary" type="submit">Reset election</button>
+      </form>
+    </article>
+  </aside>
+</section>
+{% endblock %}

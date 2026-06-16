@@ -1,0 +1,589 @@
+body.login-screen,
+body.register-screen {
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.52), transparent 18%),
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.2), transparent 12%),
+    radial-gradient(circle at 86% 22%, rgba(255, 255, 255, 0.14), transparent 10%),
+    linear-gradient(180deg, #d8e1e9 0%, #b5c1cb 36%, #8f9aa5 68%, #73808c 100%);
+}
+
+body.login-screen::before,
+body.login-screen::after,
+body.register-screen::before,
+body.register-screen::after {
+  content: "";
+  position: fixed;
+  inset: -8%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.login-screen::before,
+body.register-screen::before {
+  background:
+    linear-gradient(90deg, rgba(248, 250, 252, 0.42) 0 9%, transparent 9% 20%, rgba(255, 255, 255, 0.14) 20% 28%, transparent 28% 72%, rgba(255, 255, 255, 0.1) 72% 80%, transparent 80% 100%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.06), rgba(15, 23, 42, 0.22));
+  filter: blur(18px);
+  transform: scale(1.06);
+  opacity: 0.78;
+}
+
+body.login-screen::after,
+body.register-screen::after {
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 18% 62%, rgba(15, 118, 110, 0.18), transparent 18%),
+    radial-gradient(circle at 82% 64%, rgba(59, 130, 246, 0.2), transparent 18%);
+  filter: blur(36px);
+  opacity: 0.9;
+}
+
+body.login-screen .app-shell,
+body.login-screen .app-main,
+body.login-screen .view.active-view { position: relative; z-index: 1; }
+
+body.login-screen .topbar,
+body.register-screen .topbar { display: none; }
+
+body.login-screen .app-main {
+  width: 100%;
+  margin: 0;
+}
+
+.login-view.active-view {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1rem;
+}
+
+.login-scene {
+  width: min(100%, 430px);
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+}
+
+.login-brand {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.brand-mark--login {
+  width: 3.8rem;
+  height: 3.8rem;
+  color: #d7ebff;
+  background:
+    linear-gradient(145deg, rgba(6, 78, 59, 0.95), rgba(16, 185, 129, 0.72)),
+    linear-gradient(135deg, #e6f7ed, #c2e9d2);
+  box-shadow:
+    0 0 0 1px rgba(168, 230, 194, 0.35) inset,
+    0 18px 40px rgba(15, 23, 42, 0.22),
+    0 0 24px rgba(110, 231, 183, 0.28);
+}
+
+.brand-mark--login svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.login-brand-text p {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.65rem);
+  font-weight: 900;
+  color: #064e3b;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.portal-card {
+  width: 100%;
+  padding: 0;
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(247, 250, 255, 0.62)),
+    rgba(255, 255, 255, 0.48);
+  box-shadow:
+    0 24px 80px rgba(15, 23, 42, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+  overflow: hidden;
+}
+
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+  padding: 0.45rem;
+  margin: 0.5rem 0.5rem 0;
+  border-radius: 16px;
+  background: rgba(241, 245, 249, 0.85);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.role-tab {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.6rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.role-tab .tab-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  display: inline-flex;
+  transition: transform 0.2s ease;
+}
+
+.role-tab:hover .tab-icon {
+  transform: scale(1.1);
+}
+
+.role-tab .tab-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.role-tab.active {
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-color: transparent;
+  box-shadow:
+    0 4px 12px rgba(16, 185, 129, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.2) inset;
+}
+
+.portal-body {
+  padding: 0.9rem 1rem 0.95rem;
+}
+
+.portal-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+}
+
+.portal-heading h2 {
+  margin: 0;
+  font-size: clamp(1.38rem, 3.3vw, 1.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #101828;
+}
+
+.flag-icon {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-top: 0.35rem;
+  width: 1.55rem;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.08);
+}
+
+.flag-icon svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.role-panel {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.role-panel:not(.active),
+.role-panel[hidden] {
+  display: none !important;
+}
+
+.portal-form {
+  display: grid;
+  gap: 0.58rem;
+}
+
+.field-group label {
+  margin-bottom: 0.28rem;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: #101828;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.input-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-shell input {
+  padding-left: 2.75rem;
+  padding-right: 3rem;
+  height: 3.2rem;
+  border-radius: 12px;
+  border: 1.5px solid rgba(148, 163, 184, 0.25);
+  background: rgba(248, 250, 252, 0.8);
+  font-size: 0.95rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03) inset;
+}
+
+.input-shell input::placeholder { color: rgba(100, 116, 139, 0.6); }
+
+.input-shell input:focus {
+  border-color: var(--primary);
+  background: var(--surface-strong);
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.92) inset;
+}
+
+.input-icon,
+.input-action {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(71, 85, 105, 0.7);
+  transition: color 0.2s ease;
+}
+
+.input-shell input:focus ~ .input-icon {
+  color: var(--primary);
+}
+
+.input-icon {
+  left: 0.95rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.input-icon svg,
+.input-action svg {
+  width: 100%;
+  height: 100%;
+}
+
+.input-action {
+  right: 0.75rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.input-action:hover {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text);
+}
+
+.input-action .eye-off { display: none; }
+.input-action.is-revealed .eye-open { display: none; }
+.input-action.is-revealed .eye-off { display: block; }
+
+.password-shell input {
+  padding-right: 3.25rem;
+}
+
+.login-note {
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.portal-submit {
+  width: 100%;
+  min-height: 3.2rem;
+  font-size: 0.95rem;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  box-shadow:
+    0 10px 25px rgba(16, 185, 129, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.1) inset;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portal-submit:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 12px 30px rgba(16, 185, 129, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.15) inset;
+}
+
+.portal-submit:active {
+  transform: translateY(1px);
+}
+
+.portal-submit svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.portal-submit:disabled {
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.login-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border);
+}
+
+.login-stats .mini-stat {
+  padding: 0.75rem 0.25rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.01);
+  transition: all 0.2s ease;
+}
+
+.login-stats .mini-stat:hover {
+  background: var(--surface-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.login-stats .mini-stat .k {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.login-stats .mini-stat .v {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+
+.portal-footer {
+  display: grid;
+  place-items: center;
+  padding-top: 0.3rem;
+}
+
+.portal-footnote {
+  font-size: 0.68rem;
+  color: rgba(71, 85, 105, 0.8);
+  letter-spacing: 0.02em;
+}
+
+@media (max-height: 760px) {
+  .login-scene {
+    gap: 0.55rem;
+    transform: scale(0.94);
+    transform-origin: top center;
+  }
+
+  .login-view.active-view {
+    padding-top: 0.6rem;
+  }
+}
+
+/* Biometric Registry & Verification Wizard Styling */
+.wizard-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  gap: 1rem;
+}
+
+.wizard-step {
+  font-size: 0.95rem;
+  color: var(--text-faint);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 0.5rem;
+  cursor: default;
+}
+
+.wizard-step.active {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.wizard-step.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 99px;
+  animation: fadeSlide 0.3s ease;
+}
+
+/* Biometric Guideline Oval and Nodes */
+.camera-face-guideline {
+  position: absolute;
+  inset: 15%;
+  border: 2px dashed rgba(16, 185, 129, 0.6);
+  border-radius: 50% / 60% 60% 40% 40%;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.4);
+  transition: all 0.3s ease;
+}
+
+.camera-face-guideline::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.8);
+  box-shadow: 0 0 8px var(--success);
+}
+
+.biometric-mesh-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle, rgba(16, 185, 129, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+  background-size: 8px 8px, 20px 20px, 20px 20px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.biometric-scan-animation {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px double var(--primary);
+  border-top-color: var(--success);
+  border-bottom-color: var(--success);
+  animation: spinRadar 1.8s linear infinite;
+  position: relative;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+.biometric-scan-animation::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 2px dashed var(--secondary);
+  animation: spinRadar 3s linear infinite reverse;
+}
+
+.ocr-scanner-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--success), transparent);
+  box-shadow: 0 0 12px var(--success), 0 0 4px var(--success);
+  z-index: 10;
+  animation: scanRadar 2.5s ease-in-out infinite;
+}
+
+#livenessChallengeContainer {
+  border-radius: 12px;
+  animation: fadeSlide 0.3s ease;
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+.form-grid.two-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.file-label {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.file-label:hover {
+  border-color: var(--primary) !important;
+  background: rgba(16, 185, 129, 0.04) !important;
+}
+
+.summary-list {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-key {
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.summary-val {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+  word-break: break-all;
+}
+
+@keyframes scanRadar {
+  0% { top: 5%; }
+  50% { top: 90%; }
+  100% { top: 5%; }
+}
+
+@keyframes spinRadar {
+  to { transform: rotate(360deg); }
+}

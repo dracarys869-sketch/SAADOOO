@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Ballot | E BOTO MO NA YAN</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/voter.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <main id="app" class="app-main" tabindex="-1">
+      <!-- VOTER VIEW -->
+      <section id="voterView" class="view active-view" aria-labelledby="voterBallotTitle">
+        <header class="screen-header surface-card">
+          <div>
+            <p class="eyebrow">Official Ballot</p>
+            <h2 id="voterBallotTitle">Cast Your Votes</h2>
+          </div>
+          <div class="header-actions" style="align-items: center; gap: 1rem;">
+            <div id="voterHeaderStats"></div>
+            <button id="voterLogoutBtn" class="ghost-button danger" type="button">Logout</button>
+          </div>
+        </header>
+
+        <div class="voter-layout" style="margin-top: 1.2rem;">
+          <div class="ballot-panel surface-card">
+            <div id="ballotArea" class="ballot-area">
+              <!-- Dynamically populated candidate options -->
+            </div>
+          </div>
+
+          <div class="summary-panel surface-card" style="position: sticky; top: 1.2rem;">
+            <h3>Selection Summary</h3>
+            <div id="ballotProgress" style="font-weight: 700; margin: 1rem 0 0.5rem; font-size: 0.95rem;">Completion: 0%</div>
+            <div id="selectionSummary" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; margin-bottom: 1.5rem;">
+              <!-- Dynamically populated summary of choices -->
+            </div>
+            <div style="display: grid; gap: 0.75rem;">
+              <button id="openReviewBtn" class="primary-button" disabled type="button">Review & Submit</button>
+              <button id="clearSelectionsBtn" class="ghost-button subtle" type="button">Clear Selections</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Dialog / Modals / Toast / Overlays -->
+  <div id="toastRegion" class="toast-region"></div>
+
+  <div id="loadingOverlay" class="loading-overlay" hidden>
+    <div class="spinner-card surface-card">
+      <div class="spinner"></div>
+      <p id="loadingText">Processing...</p>
+    </div>
+  </div>
+
+  <dialog id="modalDialog" class="modal-dialog">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p id="modalEyebrow" class="eyebrow"></p>
+          <h3 id="modalTitle"></h3>
+        </div>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/helpers.js"></script>
+  <script src="../js/login.js"></script>
+  <script src="../js/voter.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

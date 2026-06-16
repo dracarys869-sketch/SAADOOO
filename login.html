@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-hero panel panel-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Secure civic access</span>
+      <h1>E Boto Mo Na Yan</h1>
+      <p class="hero-lead">
+        Fast sign-in for voters and administrators with a cleaner hierarchy, stronger contrast, and a polished election workflow.
+      </p>
+
+      <div class="hero-points">
+        <div class="metric metric-inverse">
+          <span>Access</span>
+          <strong>Verified</strong>
+        </div>
+        <div class="metric metric-inverse">
+          <span>Ballot flow</span>
+          <strong>Guided</strong>
+        </div>
+        <div class="metric metric-inverse">
+          <span>Interface</span>
+          <strong>Modern</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 420 360" role="img" focusable="false">
+        <defs>
+          <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#93c5fd" />
+            <stop offset="55%" stop-color="#2563eb" />
+            <stop offset="100%" stop-color="#0f766e" />
+          </linearGradient>
+        </defs>
+        <rect x="32" y="26" width="356" height="308" rx="32" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.14)" />
+        <circle cx="118" cy="86" r="36" fill="rgba(255,255,255,0.08)" />
+        <circle cx="306" cy="74" r="16" fill="rgba(255,255,255,0.1)" />
+        <circle cx="324" cy="262" r="18" fill="rgba(255,255,255,0.08)" />
+        <path d="M210 64l88 32v72c0 68-40 110-88 138-48-28-88-70-88-138V96l88-32z" fill="url(#shieldGradient)" opacity="0.96" />
+        <path d="M185 176l22 22 52-54" fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+        <rect x="98" y="238" width="224" height="18" rx="9" fill="rgba(255,255,255,0.16)" />
+        <rect x="118" y="270" width="180" height="12" rx="6" fill="rgba(255,255,255,0.12)" />
+        <circle cx="86" cy="286" r="6" fill="#38bdf8" />
+        <circle cx="336" cy="114" r="6" fill="#2dd4bf" />
+        <path d="M80 118h44M74 146h32M304 146h54" stroke="rgba(255,255,255,0.24)" stroke-width="8" stroke-linecap="round" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="login-stack">
+    {% set login_messages = get_flashed_messages(with_categories=true) %}
+
+    <article class="panel auth-card auth-card-voter">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-alt">Voter Access</span>
+        <h2>Start voting</h2>
+        <p>Use the voter ID issued by the election administrator.</p>
+      </div>
+
+      {% if login_messages %}
+        <section class="login-alert-stack" aria-live="polite">
+          {% for category, message in login_messages %}
+            <div class="login-alert login-alert-{{ category }}" role="alert">
+              <span class="login-alert-icon" aria-hidden="true">
+                {% if category == 'error' %}
+                  <svg viewBox="0 0 24 24" role="img" focusable="false">
+                    <path d="M12 9v4m0 4h.01M10.3 3.7l-8.3 14.3A2 2 0 0 0 3.7 21h16.6a2 2 0 0 0 1.7-3L13.7 3.7a2 2 0 0 0-3.4 0z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                {% else %}
+                  <svg viewBox="0 0 24 24" role="img" focusable="false">
+                    <path d="M9 12l2 2 4-5m-9.5 2.5a7.5 7.5 0 1 1 15 0 7.5 7.5 0 0 1-15 0z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                {% endif %}
+              </span>
+              <div class="login-alert-copy">
+                <strong>{% if category == 'error' %}Access issue{% else %}Status update{% endif %}</strong>
+                <p>{{ message }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </section>
+      {% endif %}
+
+      <form class="auth-form" method="post" action="{{ url_for('login') }}">
+        <input type="hidden" name="role" value="voter" />
+        <label>
+          <span>Voter ID</span>
+          <input type="text" name="voter_id" placeholder="23-00000" autocomplete="off" />
+        </label>
+        <button class="btn btn-primary" type="submit">Enter ballot</button>
+      </form>
+    </article>
+
+    <article class="panel auth-card auth-card-admin">
+      <div class="section-title">
+        <span class="eyebrow eyebrow-warm">Admin Access</span>
+        <h2>Manage the election</h2>
+        <p>Sign in to maintain candidates, voters, and results.</p>
+      </div>
+
+      <form class="auth-form" method="post" action="{{ url_for('login') }}">
+        <input type="hidden" name="role" value="admin" />
+        <label>
+          <span>Username</span>
+          <input type="text" name="username" placeholder="admin" autocomplete="username" />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" placeholder="Password" autocomplete="current-password" />
+        </label>
+        <button class="btn btn-secondary" type="submit">Open dashboard</button>
+      </form>
+    </article>
+  </div>
+</section>
+{% endblock %}

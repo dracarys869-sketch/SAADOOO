@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Admin Dashboard | E BOTO MO NA YAN</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+
+<body class="admin-shell">
+  <div class="app-shell">
+    <main id="app" class="app-main" tabindex="-1">
+      <!-- ADMIN VIEW -->
+      <section id="adminView" class="view active-view">
+        <div id="adminContent" class="admin-content">
+          <!-- Dynamically populated admin dashboard and management modules -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Dialog / Modals / Toast / Overlays -->
+  <div id="toastRegion" class="toast-region"></div>
+
+  <div id="loadingOverlay" class="loading-overlay" hidden>
+    <div class="spinner-card surface-card">
+      <div class="spinner"></div>
+      <p id="loadingText">Processing...</p>
+    </div>
+  </div>
+
+  <dialog id="modalDialog" class="modal-dialog">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <p id="modalEyebrow" class="eyebrow"></p>
+          <h3 id="modalTitle"></h3>
+        </div>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../js/helpers.js"></script>
+  <script src="../js/login.js"></script>
+  <script src="../js/voter.js"></script>
+  <script src="../js/admin.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
